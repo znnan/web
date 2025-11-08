@@ -19,6 +19,7 @@ const Navbar = () => {
   }, [])
 
   const isActive = (path) => location.pathname === path
+  const isHomePage = location.pathname === '/'
 
   const navItems = [
     { path: '/', key: 'home' },
@@ -28,16 +29,24 @@ const Navbar = () => {
     { path: '/contact', key: 'contact' },
   ]
 
+  // 在首页且未滚动时，使用透明背景
+  const navbarClass = isHomePage && !scrolled
+    ? 'bg-transparent backdrop-blur-sm'
+    : scrolled
+    ? 'bg-white/90 backdrop-blur-md shadow-lg'
+    : 'bg-white shadow-md'
+
+  const textClass = isHomePage && !scrolled ? 'text-white' : 'text-gray-700'
+  const logoClass = isHomePage && !scrolled 
+    ? 'text-white' 
+    : 'gradient-text'
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-lg'
-          : 'bg-white shadow-md'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarClass}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -45,7 +54,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center"
           >
-            <Link to="/" className="text-2xl font-bold gradient-text">
+            <Link to="/" className={`text-2xl font-bold ${logoClass}`}>
               NovaBridge
             </Link>
           </motion.div>
@@ -62,7 +71,11 @@ const Navbar = () => {
                   whileHover={{ y: -2 }}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isActive(item.path)
-                      ? 'text-primary-700'
+                      ? isHomePage && !scrolled
+                        ? 'text-white bg-white/20'
+                        : 'text-primary-700 bg-primary-50'
+                      : isHomePage && !scrolled
+                      ? 'text-white/90 hover:text-white hover:bg-white/10'
                       : 'text-gray-700 hover:text-primary-700'
                   }`}
                 >
@@ -70,7 +83,9 @@ const Navbar = () => {
                   {isActive(item.path) && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 rounded-full"
+                      className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${
+                        isHomePage && !scrolled ? 'bg-white' : 'bg-primary-600'
+                      }`}
                       initial={false}
                     />
                   )}
@@ -81,7 +96,11 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleLanguage}
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary-700 border border-gray-300 rounded-lg hover:border-primary-500 transition-colors bg-white hover:bg-primary-50"
+              className={`px-4 py-2 text-sm font-medium border rounded-lg transition-colors ${
+                isHomePage && !scrolled
+                  ? 'text-white border-white/30 bg-white/10 hover:bg-white/20'
+                  : 'text-gray-700 hover:text-primary-700 border-gray-300 hover:border-primary-500 bg-white hover:bg-primary-50'
+              }`}
             >
               {language === 'zh' ? 'EN' : '中文'}
             </motion.button>
@@ -92,14 +111,18 @@ const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={toggleLanguage}
-              className="px-3 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg"
+              className={`px-3 py-2 text-sm font-medium border rounded-lg ${
+                isHomePage && !scrolled
+                  ? 'text-white border-white/30 bg-white/10'
+                  : 'text-gray-700 border-gray-300'
+              }`}
             >
               {language === 'zh' ? 'EN' : '中文'}
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-primary-700 focus:outline-none"
+              className={`${textClass} hover:text-primary-700 focus:outline-none`}
             >
               <svg
                 className="h-6 w-6"
@@ -134,7 +157,9 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden pb-4 overflow-hidden"
+              className={`md:hidden pb-4 overflow-hidden ${
+                isHomePage && !scrolled ? 'bg-white/10 backdrop-blur-md' : 'bg-white'
+              }`}
             >
               {navItems.map((item, index) => (
                 <motion.div
@@ -148,7 +173,11 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                       isActive(item.path)
-                        ? 'text-primary-700 bg-primary-50'
+                        ? isHomePage && !scrolled
+                          ? 'text-white bg-white/20'
+                          : 'text-primary-700 bg-primary-50'
+                        : isHomePage && !scrolled
+                        ? 'text-white/90 hover:text-white hover:bg-white/10'
                         : 'text-gray-700 hover:text-primary-700 hover:bg-gray-50'
                     }`}
                   >

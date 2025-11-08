@@ -174,8 +174,10 @@ const Contact = () => {
             <div className="w-full h-64 bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center border-2 border-dashed border-primary-300">
               <div className="text-center">
                 <FaMapMarkerAlt className="text-primary-400 text-5xl mx-auto mb-3" />
-                <span className="text-gray-500 font-medium">
-                  {language === 'zh' ? '地图占位符' : 'Map Placeholder'}
+                <span className="text-gray-500 font-medium text-sm">
+                  {language === 'zh' 
+                    ? '需要：北京CBD办公楼或地图图片 (Beijing CBD office building or map image)' 
+                    : 'Need: Beijing CBD office building or map image'}
                 </span>
               </div>
             </div>

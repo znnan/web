@@ -11,6 +11,11 @@ import {
   FaCheckCircle
 } from 'react-icons/fa'
 
+// 导入图片
+import operationData from '../assets/images/operation data.jpg'
+import chess from '../assets/images/chess.jpg'
+import handshake from '../assets/images/handshake.jpg'
+
 const CaseStudies = () => {
   const { language } = useLanguage()
 
@@ -18,7 +23,7 @@ const CaseStudies = () => {
     {
       title: getTranslation(language, 'caseStudies.case1.title'),
       description: getTranslation(language, 'caseStudies.case1.description'),
-      image: 'placeholder',
+      image: operationData, // 使用操作数据图片代表科技公司
       industry: language === 'zh' ? '科技行业' : 'Technology',
       region: language === 'zh' ? '东南亚' : 'Southeast Asia',
       result: language === 'zh' ? '18个月内收入增长300%' : '300% Revenue Growth in 18 Months',
@@ -28,7 +33,7 @@ const CaseStudies = () => {
     {
       title: getTranslation(language, 'caseStudies.case2.title'),
       description: getTranslation(language, 'caseStudies.case2.description'),
-      image: 'placeholder',
+      image: chess, // 使用国际象棋图片代表战略并购
       industry: language === 'zh' ? '制造业' : 'Manufacturing',
       region: language === 'zh' ? '欧洲' : 'Europe',
       result: language === 'zh' ? '成功完成5亿美元并购' : 'Successfully Completed $500M M&A',
@@ -38,7 +43,7 @@ const CaseStudies = () => {
     {
       title: getTranslation(language, 'caseStudies.case3.title'),
       description: getTranslation(language, 'caseStudies.case3.description'),
-      image: 'placeholder',
+      image: handshake, // 使用握手图片代表合作伙伴关系
       industry: language === 'zh' ? '电子商务' : 'E-commerce',
       region: language === 'zh' ? '欧洲' : 'Europe',
       result: language === 'zh' ? '用户增长200%，建立50+合作伙伴' : '200% User Growth, 50+ Partnerships',
@@ -122,13 +127,18 @@ const CaseStudies = () => {
                 >
                   <div className="md:flex">
                     <div className="md:w-1/3 relative overflow-hidden">
-                      <div className="w-full h-64 md:h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative">
-                        <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.color} opacity-20`}></div>
+                      <div className="w-full h-64 md:h-full relative">
+                        <img
+                          src={caseStudy.image}
+                          alt={caseStudy.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.color} opacity-30`}></div>
                         <motion.div
                           whileHover={{ scale: 1.2, rotate: 10 }}
-                          className={`w-32 h-32 rounded-2xl bg-gradient-to-br ${caseStudy.color} flex items-center justify-center shadow-2xl relative z-10`}
+                          className={`absolute top-4 right-4 w-20 h-20 rounded-xl bg-gradient-to-br ${caseStudy.color} flex items-center justify-center shadow-2xl z-10`}
                         >
-                          <IconComponent className="text-white text-5xl" />
+                          <IconComponent className="text-white text-3xl" />
                         </motion.div>
                       </div>
                     </div>
