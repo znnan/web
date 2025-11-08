@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -11,7 +11,9 @@ import { LanguageProvider } from './contexts/LanguageContext'
 
 function AppContent() {
   const location = useLocation()
-  const isHomePage = location.pathname === '/'
+  // 对于 HashRouter，pathname 始终是 '/'，hash 包含实际路径
+  const hashPath = location.hash.replace('#', '') || '/'
+  const isHomePage = hashPath === '/' || hashPath === ''
 
   return (
     <div className="min-h-screen flex flex-col">

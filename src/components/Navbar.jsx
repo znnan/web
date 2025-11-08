@@ -18,8 +18,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const isActive = (path) => location.pathname === path
-  const isHomePage = location.pathname === '/'
+  // 支持 HashRouter：检查 hash 路径
+  const hashPath = location.hash.replace('#', '') || '/'
+  const isActive = (path) => {
+    if (path === '/') {
+      return hashPath === '/' || hashPath === ''
+    }
+    return hashPath === path
+  }
+  const isHomePage = hashPath === '/' || hashPath === ''
 
   const navItems = [
     { path: '/', key: 'home' },
