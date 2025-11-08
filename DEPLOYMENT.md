@@ -2,12 +2,19 @@
 
 本指南将帮助您将网站部署到 GitHub Pages，使用 `/yinkun/` 作为基础路径。
 
+## ⚠️ 重要提示
+
+**GitHub Pages 免费版仅支持公开仓库（Public Repository）**
+
+如果您看到 "Upgrade or make this repository public to enable Pages" 的提示，需要先将仓库设置为公开。详细步骤请参考 [GITHUB_SETUP.md](./GITHUB_SETUP.md)。
+
 ## 前置要求
 
 1. 一个 GitHub 账户
 2. 已安装 Git
 3. 已安装 Node.js (v18 或更高版本)
 4. 已安装 pnpm（推荐使用 corepack）
+5. **仓库必须设置为 Public（公开）**
 
 安装 pnpm：
 ```bash
@@ -47,8 +54,16 @@ git push -u origin main
 1. 进入您的 GitHub 仓库
 2. 点击 **Settings**（设置）
 3. 在左侧菜单中找到 **Pages**
-4. 在 **Source** 部分，选择 **GitHub Actions**
-5. 保存设置
+4. 在 **Source** 部分，您会看到几个选项：
+   - **GitHub Actions** ⭐（推荐，选择这个）
+   - Deploy from a branch（从分支部署）
+     - Jekyll（用于 Jekyll 网站）
+     - Static HTML（用于静态 HTML 文件）
+
+5. **选择 "GitHub Actions"**（这是推荐选项，因为我们使用 GitHub Actions 自动构建和部署）
+6. 保存设置
+
+> **注意**：如果选择 "Deploy from a branch"，需要选择 "Static HTML" 而不是 "Jekyll"，因为我们的项目是使用 Vite 构建的 React 应用，不是 Jekyll 网站。但推荐使用 "GitHub Actions" 选项。
 
 #### 3. 自动部署
 
@@ -88,7 +103,10 @@ pnpm deploy
 2. 在 **Source** 中选择 **Deploy from a branch**
 3. 选择 **gh-pages** 分支
 4. 选择 **/ (root)** 文件夹
-5. 点击 **Save**
+5. **重要**：确保选择 **Static HTML** 而不是 Jekyll（如果看到这个选项）
+6. 点击 **Save**
+
+> **说明**：如果使用手动部署方法，选择 "Static HTML" 是正确的，因为我们的项目是静态 HTML 文件，不是 Jekyll 网站。项目根目录已有 `.nojekyll` 文件，用于禁用 Jekyll 处理。
 
 #### 4. 访问网站
 

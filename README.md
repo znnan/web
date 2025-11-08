@@ -108,11 +108,20 @@ pnpm preview
 
 本项目已配置为部署到 GitHub Pages，使用 `/yinkun/` 作为基础路径。
 
+⚠️ **重要**：GitHub Pages 免费版仅支持公开仓库。如果仓库是私有的，需要先将其设置为公开。详细步骤请参考 [GITHUB_SETUP.md](./GITHUB_SETUP.md)。
+
 #### 自动部署（GitHub Actions）
 
-1. **启用 GitHub Pages**
+1. **将仓库设置为公开（如果尚未设置）**
+   - 进入仓库的 Settings → 滚动到底部 → Danger Zone
+   - 点击 "Change visibility" → 选择 "Make public"
+   - 详细步骤见 [GITHUB_SETUP.md](./GITHUB_SETUP.md)
+
+2. **启用 GitHub Pages**
    - 进入仓库的 Settings → Pages
-   - Source 选择 "GitHub Actions"
+   - Source 选择 **"GitHub Actions"**（推荐）
+   - 如果看到 "Deploy from a branch" 选项，选择 **"Static HTML"** 而不是 Jekyll
+   - 详细说明见 [GITHUB_PAGES_SETUP.md](./GITHUB_PAGES_SETUP.md)
 
 2. **推送代码**
    - 将代码推送到 `main` 或 `master` 分支
